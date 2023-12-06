@@ -32,7 +32,7 @@ type Rating struct {
 
 const (
 	mspID        = "Org1MSP"
-	cryptoPath   = "../../test-network/organizations/peerOrganizations/org1.example.com"
+	cryptoPath   = "../../network/organizations/peerOrganizations/org1.example.com"
 	certPath     = cryptoPath + "/users/User1@org1.example.com/msp/signcerts/cert.pem"
 	keyPath      = cryptoPath + "/users/User1@org1.example.com/msp/keystore/"
 	tlsCertPath  = cryptoPath + "/peers/peer0.org1.example.com/tls/ca.crt"
@@ -89,7 +89,7 @@ func main() {
 		fmt.Println("1. Add an Rating")
 		fmt.Println("2. View all Ratings")
 		fmt.Println("3. Search Place")
-		fmt.Println("4. Overral Rating")
+		fmt.Println("4. Overall Rating")
         fmt.Println("5. Exit")
 
 		var choice int
@@ -272,7 +272,6 @@ func viewRating(contract *client.Contract) {
     }
 }
 
-// newGrpcConnection creates a gRPC connection to the Gateway server.
 func newGrpcConnection() *grpc.ClientConn {
 	certificate, err := loadCertificate(tlsCertPath)
 	if err != nil {
@@ -291,7 +290,6 @@ func newGrpcConnection() *grpc.ClientConn {
 	return connection
 }
 
-// newIdentity creates a client identity for this Gateway connection using an X.509 certificate.
 func newIdentity() *identity.X509Identity {
 	certificate, err := loadCertificate(certPath)
 	if err != nil {
@@ -314,7 +312,6 @@ func loadCertificate(filename string) (*x509.Certificate, error) {
 	return identity.CertificateFromPEM(certificatePEM)
 }
 
-// newSign creates a function that generates a digital signature from a message digest using a private key.
 func newSign() identity.Sign {
 	files, err := os.ReadDir(keyPath)
 	if err != nil {
@@ -339,7 +336,6 @@ func newSign() identity.Sign {
 	return sign
 }
 
-// Evaluate a transaction by assetID to query ledger state.
 func readAssetByID(contract *client.Contract) {
 	fmt.Printf("\n--> Evaluate Transaction: ReadAsset, function returns asset attributes\n")
 
@@ -352,7 +348,6 @@ func readAssetByID(contract *client.Contract) {
 	fmt.Printf("*** Result:%s\n", result)
 }
 
-// this thread to process the chaincode response (e.g. update a UI) without waiting for the commit notification
 func transferAssetAsync(contract *client.Contract) {
 	fmt.Printf("\n--> Async Submit Transaction: TransferAsset, updates existing asset owner")
 
@@ -373,7 +368,6 @@ func transferAssetAsync(contract *client.Contract) {
 	fmt.Printf("*** Transaction committed successfully\n")
 }
 
-// Submit transaction, passing in the wrong number of arguments ,expected to throw an error containing details of any error responses from the smart contract.
 func exampleErrorHandling(contract *client.Contract) {
 	fmt.Println("\n--> Submit Transaction: UpdateAsset asset70, asset70 does not exist and should return an error")
 
@@ -418,7 +412,6 @@ func exampleErrorHandling(contract *client.Contract) {
 	}
 }
 
-// Format JSON data
 func formatJSON(data []byte) string {
     var prettyJSON bytes.Buffer
     if err := json.Indent(&prettyJSON, data, "", "  "); err != nil {
@@ -426,6 +419,3 @@ func formatJSON(data []byte) string {
     }
     return prettyJSON.String()
 }
-
-
-

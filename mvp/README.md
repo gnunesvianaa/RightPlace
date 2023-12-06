@@ -1,5 +1,5 @@
-# Create the test network and a channel (from the test-network folder).
-cd test-network 
+# Create the test network and a channel.
+cd network 
 ./network.sh up createChannel -c mychannel -ca
 
 # Deploy one of the smart contract implementations.
@@ -10,7 +10,5 @@ cd ../app/application
 go run .
 
 # Clean up
-cd test-network 
+cd network 
 ./network.sh down
-
-peer lifecycle chaincode querycommitted --channelID mychannel --name basic

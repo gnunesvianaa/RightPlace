@@ -1,2 +1,2 @@
 # RightPlace
-a blockchain project to make the world better
+a blockchain, using hyperledger faric, project to make the world better
